@@ -28,10 +28,10 @@ export default function covers({navigation}) {
                         </View>
                     </View>
 
-                    <TouchableOpacity>
-                    <View style={styles.getStartedButton} onPress={()=>{
+                    <TouchableOpacity onPress={()=>{
                         navigation.navigate('Verification')
                     }}>
+                    <View style={styles.getStartedButton} >
                         <Text style={{color: "#fff"}} >Get Started</Text>
                     </View>
                   </TouchableOpacity>

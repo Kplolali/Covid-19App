@@ -7,6 +7,8 @@ import { Ionicons } from '@expo/vector-icons';
 
 import Cover from './screens/covers';
 import Verification from './screens/verification';
+import Information from './screens/generalInformation';
+import Home from './screens/HomeScreen';
 
 const Stack = createStackNavigator();
 
@@ -23,6 +25,17 @@ export default function App(){
         name='Verification'
         component= {Verification}
         options={{headerShown: false}}/>
+
+        <Stack.Screen 
+        name='General Information'
+        component= {Information}
+        />
+
+        <Stack.Screen 
+        name='Home'
+        component= {Home}
+        options={{headerShown: false}}
+        />
 
       </Stack.Navigator>
     </NavigationContainer>
