@@ -1,12 +1,33 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { Ionicons } from '@expo/vector-icons';
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-    </View>
-  );
+
+import Cover from './screens/covers';
+import Verification from './screens/verification';
+
+const Stack = createStackNavigator();
+
+export default function App(){
+  return(
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen 
+        name='Cover'
+        component= {Cover}
+        options={{headerShown: false}}/>
+
+        <Stack.Screen 
+        name='Verification'
+        component= {Verification}
+        options={{headerShown: false}}/>
+
+      </Stack.Navigator>
+    </NavigationContainer>
+    
+  )
 }
 
 const styles = StyleSheet.create({
