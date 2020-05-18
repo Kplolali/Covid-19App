@@ -11,11 +11,13 @@ export default function VitalsScreen({navigation}){
             <View style={styles.headerView}>
                 <Text style={styles.headerText}>Vitals</Text>
             </View>
-            <Text>General Information</Text>
+            <View style={{justifyContent:"center", alignItems:"center", marginTop:"50%"}}>
+                <Text>You have not logged your vitals yet</Text>
+            </View>
             <TouchableOpacity style={{alignItems:'center', justifyContent:"center"}} onPress={()=>{
                 navigation.navigate('Settings')}}>
                     <View style={styles.submitCode} >
-                        <Text style={{color: "#fff"}} >Go to Settings</Text>
+                        <Text>Log Vitals</Text>
                     </View>
             </TouchableOpacity>
             
@@ -44,10 +46,13 @@ const styles = StyleSheet.create({
         justifyContent: 'center', 
         alignItems: "center", 
         height: 45, 
-        width: 225,
-        backgroundColor: "#000000", 
+        width: 185,
+        backgroundColor: "#ffffff", 
         marginVertical: 20,
-        borderRadius:10,
+        borderRadius:1,
+        borderColor:"#242424",
+        borderWidth:1,
+        borderStyle:"dashed"
         
     },
   });
