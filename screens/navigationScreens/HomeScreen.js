@@ -10,7 +10,12 @@ export default function HomeScreen({navigation}){
                 <Text style={{fontWeight:'bold', fontSize:25}}>Home</Text>
             </View>
             <Text>General Information</Text>
-
+            <TouchableOpacity style={{alignItems:'center', justifyContent:"center"}} onPress={()=>{
+                navigation.navigate('Report')}}>
+                    <View style={styles.submitCode} >
+                        <Text style={{color: "#fff"}} >Go to Report</Text>
+                    </View>
+            </TouchableOpacity>
             
         </View>
     )

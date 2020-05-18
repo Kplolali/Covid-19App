@@ -1,53 +1,90 @@
-import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import { Ionicons } from '@expo/vector-icons';
+import 'react-native-gesture-handler';
+import * as React from 'react';
+import {View, Text, TouchableOpacity} from 'react-native'
+import { NavigationContainer } from '@react-navigation/native'
+import { createStackNavigator} from '@react-navigation/stack'
+import { createBottomTabNavigator} from '@react-navigation/bottom-tabs'
+
+// necessary imports
+import Cover from './screens/covers'
+import Verification from './screens/verification'
+import Information from './screens/generalInformation'
+
+//tab imports 
+import Home from './screens/navigationScreens/HomeScreen';
+import Vitals from './screens/navigationScreens/Vitals';
+import Report from './screens/navigationScreens/Report';
+import Settings from './screens/navigationScreens/Settings';
+
+// components
+import TabBarIcon from './components/tabBarIcon'
 
 
-import Cover from './screens/covers';
-import Verification from './screens/verification';
-import Information from './screens/generalInformation';
-import Home from './screens/HomeScreen';
+
+const bottomTab = createBottomTabNavigator();
+
+const MainSectionTab = ()=>{
+  return (
+    <bottomTab.Navigator 
+      tabBarOptions={{
+          activeTintColor: '#000',
+          inactiveTintColor: '#ccc',
+        }}
+    >
+      <bottomTab.Screen name="Home" component={Home}
+        options={{
+          tabBarIcon: ({focused})=> (
+            <TabBarIcon focused ={focused} name="md-home"/>
+            )
+        }}
+      />
+      <bottomTab.Screen name="Report" component={Report} 
+        options={{
+          tabBarIcon: ({focused})=> (
+            <TabBarIcon focused ={focused} name="ios-paper-plane"/>
+            )
+        }}
+      />
+      <bottomTab.Screen name="Vitals" component={Vitals}
+        options={{
+          tabBarIcon: ({focused})=> (
+            <TabBarIcon focused ={focused} name="ios-pulse"/>
+            )
+        }}
+      />
+      <bottomTab.Screen name="Settings" component={Settings}
+        options={{
+          tabBarIcon: ({focused})=> (
+            <TabBarIcon focused ={focused} name="ios-settings"/>
+            )
+        }}
+      />
+    </bottomTab.Navigator>
+  )
+}
+
 
 const Stack = createStackNavigator();
 
 export default function App(){
   return(
     <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen 
-        name='Cover'
-        component= {Cover}
-        options={{headerShown: false}}/>
-
-        <Stack.Screen 
-        name='Verification'
-        component= {Verification}
-        options={{headerShown: false}}/>
-
-        <Stack.Screen 
-        name='General Information'
-        component= {Information}
-        />
-
-        <Stack.Screen 
-        name='Home'
-        component= {Home}
+      <Stack.Navigator initialRouteName="Home">
+        <Stack.Screen name="Cover" component={Cover} 
         options={{headerShown: false}}
         />
-
+        <Stack.Screen name="Verification" component={Verification} 
+        options={{headerShown: false}}
+        />
+        <Stack.Screen name="General Information" component={Information} 
+        options={{ headerShown: false}}
+        />
+        <Stack.Screen name="Home" component={MainSectionTab} 
+          options={{
+            headerShown: false
+          }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
-    
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
