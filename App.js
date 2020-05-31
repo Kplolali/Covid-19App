@@ -69,7 +69,7 @@ const Stack = createStackNavigator();
 export default function App(){
   return(
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home">
+      <Stack.Navigator>
         <Stack.Screen name="Cover" component={Cover} 
         options={{headerShown: false}}
         />

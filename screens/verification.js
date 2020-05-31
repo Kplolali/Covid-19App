@@ -6,7 +6,7 @@ import { Ionicons } from '@expo/vector-icons';
 export default function Verification({navigation}){
     return(
         <View style={styles.container}>
-            <View style={{flexDirection:"row"}}>
+            <View style={{flexDirection:"row"}}> 
                 <Ionicons 
                 name='ios-arrow-back'
                 size={26} 
@@ -22,11 +22,15 @@ export default function Verification({navigation}){
             </View>
 
             <TouchableOpacity style={{alignItems:'center', justifyContent:"center"}} onPress={()=>{
-            navigation.navigate('General Information')}}>
+               navigation.navigate('General Information')}}>
                 <View style={styles.submitCode} >
                     <Text style={{color: "#fff"}} >Submit code</Text>
                 </View>
             </TouchableOpacity>
+            <View >
+                <Text style={{textAlign:'center'}}>Have you not received your code?</Text>
+                <Text style={{textAlign:'center', paddingTop:15}}>Resend Code</Text>
+            </View>
 
         </View>
     )
@@ -47,11 +51,10 @@ const styles = StyleSheet.create({
         display: "flex", 
         justifyContent: 'center', 
         alignItems: "center", 
-        height: 45, 
+        height: 55, 
         width: 225,
         backgroundColor: "#000000", 
         marginVertical: 20,
-        borderRadius:10,
         
     },
   });

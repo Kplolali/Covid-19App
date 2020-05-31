@@ -1,8 +1,20 @@
-import React from 'react';
-import { View, Text, ImageBackground, StyleSheet, TextInput,TouchableOpacity } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
+import React,{useState} from 'react';
+import { View, Text, ImageBackground, StyleSheet, TextInput,TouchableOpacity, ActivityIndicator } from 'react-native';
+
 
 export default function covers({navigation}) {
+
+    const [phone, setPhone] = useState('');
+    const [loading, setloading] = useState(false);
+
+    function handleButton(){
+        setloading(true);
+        setTimeout(() => {
+            navigation.navigate('Verification')
+            setloading(false)
+        },1500)
+    }
+
     return(
         <ImageBackground 
         source={require('../assets/bg.jpg')} 
@@ -12,7 +24,7 @@ export default function covers({navigation}) {
                 <Text style={styles.cover}>
                     COVERS
                 </Text>
-                <Text style={styles.text}>{"(COVID-19 EMERGENCY RESPONSE SOLUTION)\n Join the effort by well-meaning Affricans using technology to slow \n down and eventually halt the spread of COVID-19"}</Text>
+                <Text style={styles.text}>{"(COVID-19 EMERGENCY RESPONSE SOLUTION)\n Join the effort by well-meaning Africans using technology to slow \n down and eventually halt the spread of COVID-19"}</Text>
                 
                 <View style={{margin:35}}>
 
@@ -21,20 +33,29 @@ export default function covers({navigation}) {
                             <TextInput
                             style={styles.inputText}
                             keyboardType="number-pad"
+                            value={phone}
+                            onChangeText={(phone) => setPhone(phone)}
                             />
                         </View>
                         <View style={styles.phoneView}>
                             <Text>Phone Number</Text>
                         </View>
                     </View>
-
-                    <TouchableOpacity onPress={()=>{
-                        navigation.navigate('Verification')
-                    }}>
-                    <View style={styles.getStartedButton} >
-                        <Text style={{color: "#fff"}} >Get Started</Text>
-                    </View>
-                  </TouchableOpacity>
+                    {phone.length < 10 ? (
+                        <View style={styles.getStartedInactive}>
+                             <Text style={{color: "#fff"}} >Get Started</Text>
+                        </View>   
+                    ):(
+                        <TouchableOpacity style={styles.getStartedActive}  onPress={handleButton}>
+                            {loading ? (
+                                <ActivityIndicator color="#fff" />
+                            ):(
+                                <Text style={{color: "#fff"}} >Get Started</Text>
+                            )}
+                           
+                      </TouchableOpacity>
+                    )}
+                 
 
                 </View>
             </View>
@@ -51,22 +72,32 @@ const styles = StyleSheet.create({
     },
     text:{
         color:"white", 
-        textAlign:'center'
+        textAlign:'center',
+
     },
     cover:{
         color:"white",
         fontSize:60,
         fontWeight:"bold"
     },
-    getStartedButton:{
+    getStartedInactive:{
         display: "flex", 
         justifyContent: 'center', 
         alignItems: "center", 
-        height: 45, 
+        height: 50, 
+        width: 345,
+        backgroundColor: "#9f9f99", 
+        marginVertical: 20,
+    },
+
+    getStartedActive:{
+        display: "flex", 
+        justifyContent: 'center', 
+        alignItems: "center", 
+        height: 50, 
         width: 345,
         backgroundColor: "#22b266", 
         marginVertical: 20,
-        borderRadius:10
     },
     phoneView:{
         display: "flex",

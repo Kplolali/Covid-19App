@@ -1,10 +1,21 @@
-import React from 'react';
+import React,{useState} from 'react';
 import { View, Text,  StyleSheet, TextInput,TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
 import Header from '../../components/header/header'
+import MakeReportModal from '../../components/report/MakeReportModal';
 
 export default function ReportScreen({navigation}){
+
+    const [openModal, setopenModal] = useState(false);
+
+    function handleOpenModal(){
+        setopenModal(true)
+    }
+
+    function handleCloseModal(){
+        setopenModal(false)
+    }
     return(
         <View style={styles.container}>
             <Header />
@@ -14,13 +25,12 @@ export default function ReportScreen({navigation}){
             <View style={{justifyContent:"center", alignItems:"center", marginTop:"50%"}}>
                 <Text>You don't have any case reports </Text>
             </View>
-            <TouchableOpacity style={{alignItems:'center', justifyContent:"center"}} onPress={()=>{
-                navigation.navigate('Vitals')}}>
+            <TouchableOpacity onPress={handleOpenModal} style={{alignItems:'center', justifyContent:"center"}} >
                     <View style={styles.submitCode} >
                         <Text>Make Case Reports</Text>
                     </View>
-            </TouchableOpacity>
-            
+                    <MakeReportModal openModal={openModal} closeModal={handleCloseModal} />
+            </TouchableOpacity>   
         </View>
     )
 }
@@ -28,7 +38,7 @@ const styles = StyleSheet.create({
     container: {
       flex: 1,
       backgroundColor: '#fff',
-      paddingHorizontal:20,
+      paddingHorizontal:10,
       paddingVertical:20,
       
     },
