@@ -4,6 +4,8 @@ import {View, Text, TouchableOpacity} from 'react-native'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator} from '@react-navigation/stack'
 import { createBottomTabNavigator} from '@react-navigation/bottom-tabs'
+import { ApolloProvider } from '@apollo/react-hooks'
+import ApolloClient from 'apollo-boost'
 
 // necessary imports
 import Cover from './screens/covers'
@@ -67,7 +69,12 @@ const MainSectionTab = ()=>{
 const Stack = createStackNavigator();
 
 export default function App(){
+
+  const client = new ApolloClient({
+    uri:'https://covid19-graphql.netlify.app/'
+  })
   return(
+    <ApolloProvider client={client}>
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen name="Cover" component={Cover} 
@@ -86,5 +93,6 @@ export default function App(){
         />
       </Stack.Navigator>
     </NavigationContainer>
+    </ApolloProvider>
   )
 }

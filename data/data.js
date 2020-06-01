@@ -1,23 +1,3 @@
-export const Slider = [
-    {
-        id:1,
-        number:1000,
-        name:'Confirmed Cases',
-        image:require('../assets/bg.jpg')
-    },
-    {
-        id:2,
-        number:500,
-        name:'Recovered',
-        image:require('../assets/recovered.jpg')
-    },
-    {
-        id:3,
-        number:60,
-        name:'Deaths',
-        image:require('../assets/deaths.jpeg')
-    }
-]
 
 export const News = [
     {

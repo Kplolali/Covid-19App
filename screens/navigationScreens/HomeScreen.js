@@ -1,22 +1,36 @@
 import React from 'react';
-import { View, Text,  StyleSheet, TextInput,TouchableOpacity, Image } from 'react-native';
+import { View, Text,  StyleSheet, TextInput,TouchableOpacity, Image, ActivityIndicator } from 'react-native';
+import { useQuery } from '@apollo/react-hooks';
 import { Ionicons } from '@expo/vector-icons';
-import { Slider, News } from '../../data/data';
+import { News } from '../../data/data';
+import { getGhanaData } from '../../queries/queries';
+
 
 import Header from '../../components/header/header'
 import { ScrollView, FlatList } from 'react-native-gesture-handler';
 
-const SliderComponent = () => {
+const SliderComponent = (props) => {
+    const {data} = props
     return(
         <ScrollView  style={styles.sliderContainer}horizontal={true} >
-            {Slider.map(item => (
-                <View style={{paddingHorizontal:10}} key={item.id} >
-                <Image style={styles.image} source={item.image}/>
-                    <Text style={styles.number}>{item.number}</Text>
-                    <Text style={styles.name}>{item.name}</Text>
+            {/* Cases */}
+                <View>
+                    <Image style={styles.image} source={require('../../assets/bg.jpg')}/>
+                        <Text style={styles.number}>{data?.country?.result?.cases || 'Null'}</Text>
+                     <Text style={styles.name}>Cases</Text>
                 </View>
-            ))}
-   
+            {/* Recoveries  */}
+               <View style={{paddingLeft:15}}>
+                    <Image style={styles.image} source={require('../../assets/recovered.jpg')}/>
+                        <Text style={styles.number}>{data?.country?.result?.recovered || 'Null'}</Text>
+                     <Text style={styles.name}>Recovered</Text>
+                </View>
+            {/* Deaths */}
+               <View style={{paddingLeft:15}}>
+                    <Image style={styles.image} source={require('../../assets/deaths.jpeg')}/>
+                        <Text style={styles.number}>{data?.country?.result?.deaths || 'Null'}</Text>
+                     <Text style={styles.name}>Deaths</Text>
+                </View>
         </ScrollView>
     )
 }
@@ -40,7 +54,7 @@ const NewsComponent = (props) => {
     )
 }
 export default function HomeScreen({navigation}){
-
+      const {loading, data, error} = useQuery(getGhanaData)
 
     return(
         <View style={styles.container}>
@@ -48,24 +62,28 @@ export default function HomeScreen({navigation}){
             <View style={styles.headerView}>
                 <Text style={styles.headerText}>Home</Text>
             </View>
-           <ScrollView showsVerticalScrollIndicator={false}>
-           
-           {/* Slider component     */}
-             <SliderComponent />
-        
-        
-            {/* News item */}
-            <View style={{padding:20}}>
-                <Text style={styles.mainText}>Ghana's Situation Updates</Text>
-                <Text style={styles.date}>Last Updated: 4/16/2020</Text>
-                <FlatList 
-                    scrollEnabled={false}
-                    data={News}
-                    renderItem={({item}) => (<NewsComponent {...item} />)}
-             />
-            </View>
+            {loading ? (
+                <View style={{justifyContent:'center', alignItems:'center', paddingTop:'50%'}}>
+                    <ActivityIndicator size='large' />
+                 </View>   
+            ):(
+             <ScrollView showsVerticalScrollIndicator={false}>
+                {/* Slider component     */}
+                    <SliderComponent data={data} />
+                    {/* News item */}
+                    <View style={{padding:20}}>
+                        <Text style={styles.mainText}>Ghana's Situation Updates</Text>
+                        <Text style={styles.date}>Last Updated: 4/16/2020</Text>
+                        <FlatList 
+                            scrollEnabled={false}
+                            data={News}
+                            renderItem={({item}) => (<NewsComponent {...item} />)}
+                    />
+                    </View>
            
           </ScrollView> 
+            )}
+          
         </View>
     )
 }
@@ -87,7 +105,7 @@ const styles = StyleSheet.create({
     },
     sliderContainer:{
         paddingVertical:20,
-     
+   
     },
     image:{
         width:240,
